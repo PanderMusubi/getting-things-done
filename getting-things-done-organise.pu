@@ -1,0 +1,58 @@
+@startuml
+title Getting Things Done - Organise
+skinparam activity {
+  BorderColor black
+  ArrowColor black
+  BackgroundColor white
+}
+
+start
+while (are there items\nto organise?)
+  if (is the item\nactionable?) then (yes)
+    if (is it the next\naction to do?) then (yes)
+    else (no)
+      :<b>assign</b> the action\nto a <b>project</b>;
+    endif
+    if (action takes less\nthan 2 minutes?) then (yes)
+      :<b>do</b> the\naction\nnow;
+    else (no)
+      if (is the action\ndelegatable?) then (yes)
+        if (is the item\nurgent?) then (yes)
+          :#FF9900:<b>label</b> the action\nas <b>Waiting</b>\n(2 in Thunderbird);
+        else (no)
+          :#009900:<b>label</b> the action\nas <b>Waiting</b>\n(3 in Thunderbird);
+        endif
+      else (no)
+        if (is the action\nday-specific?) then (yes)
+          if (is the action\ntime-specific?) then (yes)
+            :<b>create</b> a\n<b>date-time action</b>\nin a calendar event;
+          else (no)
+            if (is the action\ninformative?) then (yes)
+              :<b>create</b> a\n<b>date info-action</b>\nin a calendar event;
+            else (no)
+              :<b>create</b> a\n<b>date action</b>\nin a calendar event;
+            endif
+          endif
+        else (no)
+          if (is the item\nurgent?) then (yes)
+            :#FF0000:<b>label</b> the action\nas <b>Next</b> (To Do)\n(1 in Thunderbird);
+          else (no)
+            :#3333FF:<b>label</b> the action\nas <b>Next</b> (To Do)\n(4 in Thunderbird);
+          endif
+        endif
+      endif
+    endif
+  else (no)
+    if (is the item\nneeded?) then (yes)
+      if (is the item\nincubatable?) then (yes)
+        :#993399:<b>label</b> the item\nas <b>Later</b>\n(5 in Thunderbird);
+      else (no)
+        :#CCCCCC:<b>label</b> the item\nas <b>Reference</b>\n(6 in Thunderbird);
+      endif
+    else (no)
+      :<b>trash</b>\nthe item\nnow;
+    endif
+  endif
+endwhile (no)
+stop
+@enduml
